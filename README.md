@@ -14,17 +14,17 @@
 
 ### data preps.
 - [Quora Questions Pairs Datasets](https://www.kaggle.com/c/quora-question-pairs/)
-> Download https://www.kaggle.com/c/quora-question-pairs/data
-> Unzip to obtain `all ` folder under `siamese-nn-files` folder
-> Split train data into train and test set:
-> `split -l 200000 && mv xaa train-temp.csv && mv xab test-temp.csv`
+> - Download https://www.kaggle.com/c/quora-question-pairs/data
+> - Unzip to obtain `all ` folder under `siamese-nn-files` folder
+> - Split train data into train and test set:
+> - `split -l 200000 && mv xaa train-temp.csv && mv xab test-temp.csv`
 
 - [GloVE - Pre-trained Word-Vector Representations](https://nlp.stanford.edu/projects/glove/)
-> Common Crawl (840B tokens, 2.2M vocab, cased, 300d vectors, 2.03 GB download):
-> http://nlp.stanford.edu/data/glove.840B.300d.zip
-> Unzip to obtain `glove.840B.300d.txt` under `siamese-nn-files` folder
+> - Common Crawl (840B tokens, 2.2M vocab, cased, 300d vectors, 2.03 GB download):
+> - Download http://nlp.stanford.edu/data/glove.840B.300d.zip
+> - Unzip to obtain `glove.840B.300d.txt` under `siamese-nn-files` folder
 
-### options
+### options (constants in source code)
 - `train_data_max_epoch`: define training epoch
 > default: 5
 - `TRAIN_SINGLE_DATA_ITER`: define training batch size
