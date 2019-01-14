@@ -4,24 +4,29 @@
 
 ## motivations
 
-- Since recurrent neural network (RNN) can be used as a medium for implementing wide-range of computation problem by tuning its weight, the original authors suggest using two RNNs to learn representations of semantically coherent sentences.
-- The two RNNs shares the same weight parameters to produce similar geometric output reflects their similarity relationship
-- e.g. `Why do rockets look white?` =~ `Why are rockets and boosters painted white?` the weight of network is adjusted to optimal medium to minimize manhattan distance of final hidden state for each network (more details follows)
-- the language representation is derived from pre-trained word vector(similar word has represented in similar numeric values) helpful for networks to adjust their weight minimally (therefore expressively) when processing similar sentences
+- Since recurrent neural network (RNN) can be used as a medium for implementing wide-range of computation problem by tuning its weight, original authors suggest using two RNNs to learn representations of semantically coherent sentences.
+- Two RNNs shares the same weight parameters to produce similar geometric output reflects their similarity relationship.
+- Consider following semantically similar sentences: `Why do rockets look white?` and `Why are rockets and boosters painted white?`. In this case, weights of networks are adjusted to optimal medium for minimizing manhattan distance of final hidden state in each network.
+> The language representation is derived from a pre-trained word vector (similar word has represented in similar numeric values) helpful for networks to adjust their weight minimally (therefore expressively) when processing similar sentences.
 
 ### program design
 ![Program Design](docs/diagram.png)
 
+- Like much of natural language processing projects in Tensorflow, the program is comprised of three parts: pre-processing part to tokenizing and indexing input data, embedding part to transform language input to vector representation, and network part to manipulate input vector representations.
+> - In the pre-processing part, we use NLTK tokenizer to split sentences into a series of words and building words dictionary by mapping them from pre-trained word embedding values.
+> - In the embedding part, each word of input sentences is translated into a series of vectors using the dictionary from the previous part.
+> - In network part, identical network with shared weight parameter is used to processing different but semantically similar representation. Throughout the training iterations, their weights are gradually optimized to process series of word input from semantically similar sentences.
+- The Manhattan distance between hidden state vector of networks determines similarity prediction. ( refer above paper to details )
+
 ### data preps.
 - [Quora Questions Pairs Datasets](https://www.kaggle.com/c/quora-question-pairs/)
 > - Download https://www.kaggle.com/c/quora-question-pairs/data
-> - Unzip to obtain `all ` folder under `siamese-nn-files` folder
-> - Split train data into train and test set:
+> - Unzip to obtain `all` folder under `siamese-nn-files` folder
+> - Split train data into train and test sets:
 > - `split -l 200000 && mv xaa train-temp.csv && mv xab test-temp.csv`
 
 - [GloVE - Pre-trained Word-Vector Representations](https://nlp.stanford.edu/projects/glove/)
-> - Common Crawl (840B tokens, 2.2M vocab, cased, 300d vectors, 2.03 GB download):
-> - Download http://nlp.stanford.edu/data/glove.840B.300d.zip
+> - Download http://nlp.stanford.edu/data/glove.840B.300d.zip ( Common Crawl (840B tokens, 2.2M vocab, cased, 300d vectors, 2.03 GB download) )
 > - Unzip to obtain `glove.840B.300d.txt` under `siamese-nn-files` folder
 
 ### options (constants in source code)
